@@ -1,6 +1,3 @@
-console.log("Up and running!");
-
-
 var cards = [
     {
         rank: 'queen',
@@ -25,6 +22,8 @@ var cards = [
 ]
 var cardsInPlay = []
 var userScore = 0
+var gamesPlayed = 0
+//var shuffledArray = shuffle(cards)
 function checkForMatch() {
     
     if (cardsInPlay.length === 2) {
@@ -32,11 +31,14 @@ function checkForMatch() {
             console.log('you found a match')
             alert('you found a match');
             userScore++
-            document.getElementById("p1").innerHTML = 'User Score = ' + userScore;
+            gamesPlayed++
+            document.getElementById("p1").innerHTML = 'User Score = ' + userScore + ' Games Played = ' + gamesPlayed;
             console.log(userScore)
         } else {
             console.log('sorry try again')
             alert('sorry try again')
+            gamesPlayed++
+            document.getElementById("p1").innerHTML = 'User Score = ' + userScore + ' Games Played = ' + gamesPlayed;
         }
     }
 }
@@ -49,6 +51,17 @@ function flipCard() {
     console.log(cards[cardId].cardImage)
     console.log(cards[cardId].suit)
     checkForMatch()
+}
+
+function shuffle(cards) {
+    for (var i = 0; i < cards.length - 1; i++) {
+        var j = i + Math.floor(Math.random() * (cards.length - i));
+
+        var temp = cards[j];
+        cards[j] = cards[i];
+        cards[i] = temp;
+    }
+    return cards;
 }
 
 function createBoard() {
@@ -68,25 +81,11 @@ function gameReset() {
         cardElement2.setAttribute('src', 'images/back.png')
         cardsInPlay = []
     }
+    shuffle(cards)
 }
-
-
-
 
 createBoard()
 
 
-console.log(cardsInPlay)
 
-/*var cardOne = cards[0]
-var cardTwo = cards[2]
-cardsInPlay.push(cardOne)
-cardsInPlay.push(cardTwo)*/
-/*if (cardsInPlay.length === 2) {
-        if (cards[cardId].rank === cards[cardId].rank) {
-            alert('you found a match');
-        }
-        else {
-            alert('sorry try again')
-        }
-    }*/
+
